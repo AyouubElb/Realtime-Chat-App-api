@@ -49,7 +49,7 @@ exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    let user = await userModel.findOne({ email });
+    let user = await userModel.findOne({ email }).populate("image");
     if (!user) {
       return res.status(400).json({ error: "Invalid email or password !" });
     }
@@ -90,7 +90,7 @@ exports.signout = (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await userModel.find().select("-password");
+    const users = await userModel.find().populate("Images").select("-password");
     res.send(users);
   } catch (error) {
     console.log(error.message);
@@ -108,11 +108,10 @@ exports.findUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const result = await userModel.findByIdAndUpdate(
-      req.profile._id,
-      req.body,
-      { new: true }
-    );
+    const result = await userModel
+      .findByIdAndUpdate(req.profile._id, req.body, { new: true })
+      .populate("image");
+
     res.status(200).json({ user: result });
   } catch (error) {
     console.log(error.message);

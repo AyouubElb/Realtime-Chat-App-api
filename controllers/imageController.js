@@ -1,13 +1,15 @@
 const imageModel = require("../models/imageModel");
 const fs = require("fs");
+const cloudinary = require("../middlewares/cloudinary");
 
 exports.uploadImage = async (req, res) => {
   try {
-    const name = req.file.filename;
-    if (!name) {
-      res.status(404).json({ error: "upload an image!" });
-    }
-    const newImage = imageModel({ name });
+    // Upload image to cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const newImage = imageModel({
+      file: result.secure_url,
+      cloudinary_id: result.public_id,
+    });
     newImage.save();
     res.send(newImage);
   } catch (error) {

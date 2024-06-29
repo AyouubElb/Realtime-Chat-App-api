@@ -24,9 +24,9 @@ const userSchema = mongoose.Schema(
       maxlength: 1024,
     },
     image: {
-      type: String,
-      required: false,
-      default: "image_1712866797358.jpg",
+      type: mongoose.Types.ObjectId,
+      ref: "Image",
+      required: true,
     },
   },
   { timestamps: true }

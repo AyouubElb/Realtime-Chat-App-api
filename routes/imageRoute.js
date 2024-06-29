@@ -10,7 +10,8 @@ const {
   getImageById,
 } = require("../controllers/imageController");
 
-const { upload } = require("../middlewares/uploadImage");
+// const { upload } = require("../middlewares/uploadImage");
+const upload = require("../middlewares/multer");
 
 const router = express.Router();
 

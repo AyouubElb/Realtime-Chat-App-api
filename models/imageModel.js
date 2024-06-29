@@ -2,7 +2,14 @@ const mongoose = require("mongoose");
 
 const imageSchema = mongoose.Schema(
   {
-    name: { type: String, required: true },
+    file: {
+      type: String,
+      required: true,
+    },
+    cloudinary_id: {
+      type: String,
+      required: true,
+    },
   },
 
   { timestamps: true }
