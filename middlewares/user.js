@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 
 exports.userById = (req, res, next, id) => {
   User.findById(id)
+    .populate("image")
     .exec()
     .then((user) => {
       if (!user) {

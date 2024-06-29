@@ -90,7 +90,7 @@ exports.signout = (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await userModel.find().populate("Images").select("-password");
+    const users = await userModel.find().populate("image").select("-password");
     res.send(users);
   } catch (error) {
     console.log(error.message);
